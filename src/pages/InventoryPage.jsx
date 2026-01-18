@@ -33,6 +33,10 @@ export default function InventoryPage() {
     setItems(items.filter(item => item.id !== id));
   };
 
+  const handleFilterClick = (filterType) => {
+    setFilter(filter === filterType ? 'all' : filterType);
+  };
+
   const getFilteredItems = () => {
     switch(filter) {
       case 'expired':
@@ -49,21 +53,21 @@ export default function InventoryPage() {
   const filteredItems = getFilteredItems();
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-screen bg-white relative pb-20">
+    <div className="w-full max-w-md mx-auto min-h-screen bg-white relative pb-20" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
       {/* Header */}
       <div className="px-10 pt-16">
-        <h2 className="text-2xl font-bold font-['Space_Grotesk'] text-black mb-6">
+        <h2 className="text-2xl font-bold text-black mb-6" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
           Let's see what's hiding in your fridge...
         </h2>
         
-        <h1 className="text-3xl font-bold font-['Space_Grotesk'] text-black mb-4">
+        <h1 className="text-3xl font-bold text-black mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
           Live View
         </h1>
 
         {/* Camera Feed */}
         <div className="relative mb-6">
           <img 
-            src="https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?w=400&h=250&fit=crop" 
+            src="http://10.19.130.119:81/stream" 
             alt="Fridge interior"
             className="w-full h-56 object-cover rounded-2xl shadow-md border border-black"
           />
