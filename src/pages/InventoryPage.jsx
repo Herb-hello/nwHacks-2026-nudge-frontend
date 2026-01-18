@@ -352,7 +352,7 @@ export default function InventoryPage() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Item Type
+                  How would you like to add?
                 </label>
                 <div className="flex gap-3">
                   <button
@@ -366,7 +366,7 @@ export default function InventoryPage() {
                         : "border-gray-300 bg-white"
                     }`}
                   >
-                    Fridge (Scanned)
+                    Scan Barcode
                   </button>
                   <button
                     type="button"
@@ -379,7 +379,7 @@ export default function InventoryPage() {
                         : "border-gray-300 bg-white"
                     }`}
                   >
-                    Pantry
+                    Enter Item Name
                   </button>
                 </div>
               </div>
@@ -399,22 +399,7 @@ export default function InventoryPage() {
                 />
               </div>
 
-              {newItem.type === "fridge" && (
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Days Until Expiry
-                  </label>
-                  <input
-                    type="number"
-                    value={newItem.daysLeft}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, daysLeft: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-200"
-                    placeholder="e.g., 7"
-                  />
-                </div>
-              )}
+              {newItem.type === "fridge"}
 
               <button
                 onClick={handleAddItem}
