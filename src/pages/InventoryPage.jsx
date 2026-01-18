@@ -105,7 +105,7 @@ export default function InventoryPage() {
                       <pattern id="pattern0_add" patternContentUnits="objectBoundingBox" width="1" height="1">
                         <use xlinkHref="#image0_add" transform="matrix(0.0111111 0 0 0.00864198 0 0.111111)"/>
                       </pattern>
-                      <image id="image0_add" width="90" height="90" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB60lEQVR4nO3by2oUURSF4TWLGm/vYNTHUwMi5DII+HQanGjiJQEfwRaSYbOk4CSDIKGrqFrnVNf/wZ4kk33+UTfslgAAAAAswUNJD2ovsa2eS/oo6bckl7mUdCLpWe3ltsXrO4HvThf8Ve0l5+6xpIt7It/MT0m7tZedsw8bRL6Z97WXnbMvPUKf1l52zq57hL6qveycuedgIEKHmNAZJnSGCZ1hQmeY0BkmdIYJnWFCZ5jQGSZ0hgmdYUJnmNAZJnSGCZ1hQmeY0BkmdIYJnWFCZ5jQGV5q6O6+bb9cBf0dEMIzn1V5+7spb/26i83zBh7rRuZM0t4UV51E1n+vWEe9zz5u4FFudI7GDH3ZwIPc6HT326PYkbRu4EFudNalEaE1k9Da8OcNS50LjeiogQe50TkY++PdWQOPcmPzQ9JTjaz7cE5s3c5XSS80kUeS3kr6XL6OemGzkvRJ0pvSYmu452AgQoeY0BkmdIYJnWFCZ5jQGSZ0hgmdYUJnmNAZJnSGCZ1hQmeY0BkmdIYJnWFCZ5jQGSZ0hgmdYUJnmNAZJnTGqkfkP7WXnbPTHqG7CyIMtN8jdHemhYF2Nzys/LZtt3A1vJT0/Z7I51NedS7NE0mH5bp+XeZX+Vv3P0xgZ8zfjAAAAABQs/4BEpDuTWusEyoAAAAASUVORK5CYII="/>
+                      <image id="image0_add" width="90" height="90" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAASTAAALEwEAmpwYAAAB60lEQVR4nO3by2oUURSF4TWLGm/vYNTHUwMi5DII+HQanGjiJQEfwRaSYbOk4CSDIKGrqFrnVNf/wZ4kk33+UTfslgAAAAAswUNJD2ovsa2eS/oo6bckl7mUdCLpWe3ltsXrO4HvThf8Ve0l5+6xpIt7It/MT0m7tZedsw8bRL6Z97WXnbMvPUKf1l52zq57hL6qveycuedgIEKHmNAZJnSGCZ1hQmeY0BkmdIYJnWFCZ5jQGSZ0hgmdYUJnmNAZJnSGCZ1hQmeY0BkmdIYJnWFCZ5jQGV5q6O6+bb9cBf0dEMIzn1V5+7spb/26i83zBh7rRuZM0t4UV51E1n+vWEe9zz5u4FFudI7GDH3ZwIPc6HT326PYkbRu4EFudNalEaE1k9Da8OcNS50LjeiogQe50TkY++PdWQOPcmPzQ9JTjaz7cE5s3c5XSS80kUeS3kr6XL6OemGzkvRJ0pvSYmu452AgQoeY0BkmdIYJnWFCZ5jQGSZ0hgmdYUJnmNAZJnSGCZ1hQmeY0BkmdIYJnWFCZ5jQGSZ0hgmdYUJnmNAZJnTGqkfkP7WXnbPTHqG7CyIMtN8jdHemhYF2Nzys/LZtt3A1vJT0/Z7I51NedS7NE0mH5bp+XeZX+Vv3P0xgZ8zfjAAAAABQs/4BEpDuTWusEyoAAAAASUVORK5CYII="/>
                     </defs>
                   </svg>
                 </button>
@@ -114,12 +114,10 @@ export default function InventoryPage() {
               {/* Filter Pills */}
               <div className="flex gap-3 mb-6">
                 <button
-                  onClick={() => setFilter('expired')}
-                  className={`px-4 py-1.5 rounded-full ${
-                    filter === 'expired' ? 'bg-red-100' : 'bg-gray-100'
-                  }`}
+                  onClick={() => handleFilterClick('expired')}
+                  className="px-6 py-1.5 rounded-full bg-[#F5F5F5]"
                 >
-                  <span className={`text-base ${
+                  <span className={`text-base font-normal ${
                     filter === 'expired' ? 'text-red-500' : 'text-black'
                   }`}>
                     EXPIRED
@@ -127,23 +125,19 @@ export default function InventoryPage() {
                 </button>
                 
                 <button
-                  onClick={() => setFilter('3days')}
-                  className={`px-4 py-1.5 rounded-full ${
-                    filter === '3days' ? 'bg-orange-100' : 'bg-gray-100'
-                  }`}
+                  onClick={() => handleFilterClick('3days')}
+                  className="px-6 py-1.5 rounded-full bg-[#F5F5F5]"
                 >
-                  <span className="text-base text-black">
+                  <span className="text-base font-normal text-black">
                     3 days left
                   </span>
                 </button>
                 
                 <button
-                  onClick={() => setFilter('7days')}
-                  className={`px-4 py-1.5 rounded-full ${
-                    filter === '7days' ? 'bg-blue-100' : 'bg-gray-100'
-                  }`}
+                  onClick={() => handleFilterClick('7days')}
+                  className="px-6 py-1.5 rounded-full bg-[#F5F5F5]"
                 >
-                  <span className="text-base text-black">
+                  <span className="text-base font-normal text-black">
                     7 days left
                   </span>
                 </button>
