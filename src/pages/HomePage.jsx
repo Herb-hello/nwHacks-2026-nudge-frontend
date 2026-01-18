@@ -185,12 +185,12 @@ export default function HomePage() {
                 className="text-2xl font-bold text-black"
                 data-name="Greeting"
               >
-                Good morning,
+                Good afternoon,
                 <br />
                 <span style={{ fontSize: "32px" }}>Kylie</span>
               </div>
               <div className="self-start mt-7 text-sm text-black">
-                Since it's {currentTime}, here are some breakfast ideas:
+                Since it's {currentTime}, here are some lunch ideas:
               </div>
 
               {/* Recipe Cards Horizontal Scroll */}
@@ -198,14 +198,20 @@ export default function HomePage() {
                 ref={scrollRef}
                 className="flex gap-4 mt-4 overflow-x-auto scrollbar-hide -mr-10 pr-10 snap-x snap-mandatory"
               >
-                {recipes.map((recipe) => (
-                  <div key={recipe.id} className="snap-start">
-                    <RecipeCard
-                      recipe={recipe}
-                      onClick={() => handleRecipeClick(recipe.id)}
-                    />
+                {recipes.length ? (
+                  recipes.map((recipe) => (
+                    <div key={recipe.id} className="snap-start">
+                      <RecipeCard
+                        recipe={recipe}
+                        onClick={() => handleRecipeClick(recipe.id)}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full min-h-[25vh] flex justify-center items-center">
+                    <div class="w-1/4  aspect-square border-4 border-black border-t-transparent rounded-full animate-spin"></div>
                   </div>
-                ))}
+                )}
               </div>
 
               {/* Pagination Dots */}
