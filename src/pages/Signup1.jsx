@@ -63,9 +63,9 @@ export default function Signup1() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-96 relative">
+      <div className="w-100 relative">
         {/* Decorative dots at top */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-3 mb-6 justify-center">
           <div className="w-2 h-2 rounded-full bg-gray-300" />
           <div className="w-7 h-2 rounded-full bg-gray-300" />
           <div className="w-7 h-2 rounded-full bg-gray-300" />
