@@ -25,14 +25,13 @@ export default function RecipeCard({ recipe, onClick }) {
           className="object-cover shrink-0 rounded-md aspect-square shadow-[3px_4px_3px_rgba(0,0,0,0.25)] w-[100px] h-[100px]"
         />
       </div>
-      <div className="flex gap-0.5 self-end mt-2 text-xs font-light text-right text-black">
+      <div className="flex gap-1 self-end mt-2 text-xs font-light text-right text-black items-center">
         <div>Powered by Google Gemini</div>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-            fill="#4285F4"
-          />
-        </svg>
+        <img
+          src="/Gemini-Symbol.png"
+          alt="Gemini"
+          className="w-3.5 h-3.5 object-contain"
+        />
       </div>
     </div>
   );
