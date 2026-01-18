@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import SignupNavigationButton from '../components/navbutton';
 
 export default function Signup1() {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -33,13 +31,30 @@ export default function Signup1() {
       !formData.confirmPassword
     ) {
       alert("Please fill in all required fields");
-      return;
+      return false;
     }
 
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
-      return;
+      return false;
     }
+
+    localStorage.setItem("email", formData.email);
+
+    fetch("https://2026nwhacksexpress-production.up.railway.app/user", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        dateOfBirth: formData.dateOfBirth,
+      }),
+    });
   };
 
   return (

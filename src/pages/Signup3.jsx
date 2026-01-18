@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import SignupNavigationButton from '../components/navbutton';
 
 export default function Signup3() {
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRestrictions, setSelectedRestrictions] = useState([]);
 
@@ -41,6 +39,22 @@ export default function Signup3() {
     e.preventDefault();
     // You can store selectedRestrictions in context, localStorage, or pass to next page
     console.log('Selected dietary restrictions:', selectedRestrictions);
+    
+    const email = localStorage.getItem("email");
+
+    fetch(
+      `https://2026nwhacksexpress-production.up.railway.app/user/${email}/dietaryRestrictions`,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          dietaryRestrictions: selectedRestrictions,
+        }),
+      },
+    );
   };
 
   return (

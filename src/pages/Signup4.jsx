@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import SignupNavigationButton from '../components/navbutton';
 
 export default function Signup4() {
-  const navigate = useNavigate();
   const [selectedPreferences, setSelectedPreferences] = useState([]);
 
   // Recipe preferences list
@@ -29,6 +27,23 @@ export default function Signup4() {
     e.preventDefault();
     // You can store selectedPreferences in context, localStorage, or pass to next page
     console.log('Selected recipe preferences:', selectedPreferences);
+    
+    const email = localStorage.getItem("email");
+
+    fetch(
+      `https://2026nwhacksexpress-production.up.railway.app/user/${email}/recipeInterests`,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          recipeInterests: selectedPreferences,
+        }),
+      },
+    );
+
   };
 
   return (

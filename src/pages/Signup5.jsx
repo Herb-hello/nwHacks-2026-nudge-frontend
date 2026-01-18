@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import SignupNavigationButton from '../components/navbutton';
 
 export default function Signup5() {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fridgeCode: "",
     householdName: "",
@@ -27,6 +25,23 @@ export default function Signup5() {
 
     // Log all signup data (you'll want to combine with context data)
     console.log('Signup complete!', formData);
+    
+    const email = localStorage.getItem("email");
+
+    fetch(
+      `https://2026nwhacksexpress-production.up.railway.app/user/${email}/fridgeHousehold`,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fridgeCode: formData.fridgeCode,
+          householdName: formData.householdName,
+        }),
+      },
+    );
   };
 
   return (
@@ -56,6 +71,28 @@ export default function Signup5() {
               onChange={handleChange}
               placeholder=""
               className="w-80 h-16 bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] border border-black px-5 text-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+          </div>
+
+          {/* Info Text */}
+          <p className="text-stone-500 text-sm font-light">
+            You're the first to join! Create a household now.
+          </p>
+
+          {/* Household Name */}
+          <div>
+            <label className="block text-xl mb-2">
+              <span className="text-red-600">* </span>
+              <span className="text-black">Household Name</span>
+            </label>
+            <input
+              type="text"
+              name="householdName"
+              value={formData.householdName}
+              onChange={handleChange}
+              placeholder=""
+              className="w-80 h-16 bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] border border-black px-5 text-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              required
             />
           </div>
 
