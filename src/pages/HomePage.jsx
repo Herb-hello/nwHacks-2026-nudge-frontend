@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/navbar';
 
 // Recipe Card Component
 function RecipeCard({ recipe, onClick }) {
@@ -34,7 +35,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="w-96 min-h-[932px] bg-white relative overflow-hidden mx-auto">
+    <div className="w-96 min-h-[932px] bg-white relative overflow-hidden mx-auto pb-20">
       {/* Good morning Header */}
       <div className="px-[41px] pt-[62px]">
         <div className="w-60 h-16">
@@ -157,6 +158,8 @@ export default function HomePage() {
           scrollbar-width: none;
         }
       `}</style>
+
+      <Navbar />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Navbar from '../components/navbar';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([
@@ -273,6 +274,8 @@ export default function InventoryPage() {
           </div>
         </div>
       )}
+
+      <Navbar />
     </div>
   );
 }
