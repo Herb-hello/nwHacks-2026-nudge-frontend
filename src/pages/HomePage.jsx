@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
+import PhoneFrame from "../components/phoneFrame";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -38,11 +39,14 @@ export default function HomePage() {
   };
 
   return (
-    <div
-      className="overflow-hidden pt-16 mx-auto w-full bg-white max-w-[480px]"
-      data-name="HomePage"
-    >
-      <div className="flex flex-col px-10 w-full">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <PhoneFrame>
+        <div className="relative w-full h-full bg-white overflow-hidden">
+          <div
+            className="w-full h-[calc(100%-56px)] overflow-y-auto scrollbar-hide"
+            data-name="HomePage"
+          >
+          <div className="flex flex-col px-10 pt-16 pb-6 w-full">
         <div
           className="text-2xl font-bold text-black"
           data-name="Greeting"
@@ -179,9 +183,26 @@ export default function HomePage() {
             prep
           </div>
         </div>
-      </div>
+          </div>
+          </div>
 
-      <Navbar />
+          {/* Navbar at bottom of phone frame */}
+          <div className="absolute bottom-5 left-0 right-0 z-50">
+            <Navbar />
+          </div>
+        </div>
+      </PhoneFrame>
+
+      {/* Hide scrollbar CSS */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 }
