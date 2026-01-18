@@ -171,15 +171,6 @@ export default function Signup1() {
             </div>
           </form>
         </div>
-
-        {/* Image Section */}
-        <div className="hidden lg:block w-[490px] h-[990px]">
-          <img 
-            src="https://placehold.co/490x990" 
-            alt="Signup illustration"
-            className="w-full h-full object-cover rounded-2xl"
-          />
-        </div>
       </div>
     </div>
   );
