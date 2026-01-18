@@ -82,7 +82,7 @@ export default function Signup3() {
               <span className="text-2xl text-black">{restriction}</span>
               {selectedRestrictions.includes(restriction) && (
                 <svg width="35" height="35" viewBox="0 0 35 35" fill="none">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#4ADE80"/>
+                  <circle cx="17.5" cy="17.5" r="17.5" fill="#F5CF64"/>
                   <path d="M10 17.5L15 22.5L25 12.5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               )}
