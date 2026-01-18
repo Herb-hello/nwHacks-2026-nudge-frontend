@@ -1,8 +1,10 @@
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import PhoneFrame from "../components/phoneFrame";
 
 export default function InventoryPage() {
+  const navigate = useNavigate();
   const [items, setItems] = useState([
     { id: 1, name: "Chicken", daysLeft: 3, type: "fridge", expired: false },
     { id: 2, name: "Bread", daysLeft: 7, type: "fridge", expired: false },
@@ -45,40 +47,6 @@ export default function InventoryPage() {
   const handleFilterClick = (filterType) => {
     setFilter(filter === filterType ? "all" : filterType);
   };
-
-  async function fetchFridgeContents() {
-    const response = await fetch(
-      `http://localhost:3333/fridge/${localStorage.getItem("email")}`,
-      {
-        method: "PUT",
-      },
-    );
-
-    if (!response.ok) {
-      console.log("Server error:", response.status);
-      return;
-    }
-
-    const data = await response.json();
-
-    console.log("Feedback");
-
-    setItems(
-      data.map((item) => {
-        return {
-          id: item._id,
-          name: item.name,
-          daysLeft: item.estimatedShelfLifeDays,
-          type: "fridge",
-          expired: false,
-        };
-      }),
-    );
-  }
-  useEffect(() => {
-    const interval = setInterval(fetchFridgeContents, 30000);
-    return () => clearInterval(interval);
-  }, []);
 
   const getFilteredItems = () => {
     switch (filter) {
@@ -239,7 +207,10 @@ export default function InventoryPage() {
                 {filteredItems.map((item) => (
                   <div
                     key={item.id}
-                    className="w-full bg-white rounded-2xl shadow-md border border-black p-4 flex items-center justify-between"
+                    onClick={() =>
+                      item.name === "Yogurt" && navigate("/recipes/1")
+                    }
+                    className={`w-full bg-white rounded-2xl shadow-md border border-black p-4 flex items-center justify-between ${item.name === "Yogurt" ? "cursor-pointer hover:bg-gray-50" : ""}`}
                   >
                     <div className="flex items-center gap-4">
                       {item.type === "fridge" ? (
@@ -277,38 +248,13 @@ export default function InventoryPage() {
                           </defs>
                         </svg>
                       ) : (
-                        <svg
-                          width="27"
-                          height="27"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M4 8H20L18 20H6L4 8Z"
-                            stroke="black"
-                            strokeWidth="2"
-                            strokeLinejoin="round"
+                        <div className="w-[32px] flex justify-center">
+                          <img
+                            src="/ingredients.png"
+                            alt="Pantry"
+                            className="w-[32px] h-[32px] object-contain"
                           />
-                          <path
-                            d="M2 8H22"
-                            stroke="black"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M8 12H16"
-                            stroke="black"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M9 16H15"
-                            stroke="black"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                          />
-                        </svg>
+                        </div>
                       )}
                       <div>
                         <p className="text-base font-bold text-black">
