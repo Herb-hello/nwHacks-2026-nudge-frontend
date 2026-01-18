@@ -6,29 +6,29 @@ export default function LandingPage() {
   return (
     <div className="w-96 h-[932px] relative bg-white overflow-hidden mx-auto">
       {/* App Title */}
-      <div className="w-80 h-20 left-[63px] top-[123px] absolute text-center text-black text-7xl font-bold">
+      <div className="w-80 h-20 left-[53px] top-[90px] absolute text-center text-black text-7xl font-bold">
         nudge.
       </div>
 
       {/* Main Image */}
       <img 
-        className="w-72 h-72 left-[63px] top-[286px] absolute" 
+        className="w-72 h-72 left-[53px] top-[270px] absolute center" 
         src="nudgeLogo.png" 
         alt="Nudge app illustration"
       />
 
       {/* Tagline */}
-      <div className="left-[104px] top-[671px] absolute text-center text-black text-xl font-medium">
-        Less Waste, More Taste
+      <div className="left-[100px] top-[671px] absolute text-center text-black text-xl font-medium">
+        Less Waste, More Taste.                     
       </div>
 
       {/* Subtitle */}
-      <div className="left-[63px] top-[702px] absolute text-center text-black text-xl font-normal">
+      <div className="left-[62px] top-[702px] absolute text-center text-black text-xl font-normal">
         Your Fridge's Virtual Companion
       </div>
 
       {/* Call-to-Action Buttons */}
-      <div className="absolute bottom-20 left-0 right-0 flex flex-col items-center gap-4 px-8">
+      <div className="absolute top-[770px] left-5 right-0 flex flex-col items-center gap-4 px-8">
         <button
           onClick={() => navigate('/signup/1')}
           className="w-full bg-[#F5CF64] hover:bg-[#e6c055] transition-colors rounded-full py-4 text-white text-xl font-bold shadow-lg"
