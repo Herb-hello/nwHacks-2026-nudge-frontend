@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import PhoneFrame from '../components/phoneFrame';
 
 export default function RecipePage() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState('all');
 
   const recipes = [
@@ -153,10 +155,11 @@ export default function RecipePage() {
                       </div>
 
                       {/* Recipe Image */}
-                      <img 
+                      <img
                         src={recipe.image}
                         alt={recipe.title}
-                        className="w-40 h-28 rounded-md outline outline-2 outline-zinc-300 object-cover"
+                        onClick={() => navigate(`/recipes/${recipe.id}`)}
+                        className="w-40 h-28 rounded-md outline outline-2 outline-zinc-300 object-cover cursor-pointer hover:opacity-80 transition-opacity"
                       />
                     </div>
                   </div>
