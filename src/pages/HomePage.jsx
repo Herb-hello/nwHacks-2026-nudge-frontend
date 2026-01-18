@@ -1,10 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import PhoneFrame from "../components/phoneFrame";
+import RecipeCard from "../components/RecipeCard";
+
+const recipes = [
+  {
+    id: 1,
+    title: "Greek Yogurt & Berries",
+    ingredients: ["Greek Yogurt", "Berries", "Raisin Bran Cereal", "Honey"],
+    image:
+      "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop",
+  },
+  {
+    id: 2,
+    title: "Avocado Toast",
+    ingredients: ["Bread", "Avocado", "Cherry Tomatoes", "Feta Cheese"],
+    image:
+      "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400&h=300&fit=crop",
+  },
+  {
+    id: 3,
+    title: "Overnight Oats",
+    ingredients: ["Oats", "Milk", "Chia Seeds", "Maple Syrup"],
+    image:
+      "https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=400&h=300&fit=crop",
+  },
+  {
+    id: 4,
+    title: "Smoothie Bowl",
+    ingredients: ["Banana", "Berries", "Granola", "Almond Butter"],
+    image:
+      "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop",
+  },
+  {
+    id: 5,
+    title: "Veggie Omelette",
+    ingredients: ["Eggs", "Spinach", "Bell Peppers", "Cheese"],
+    image:
+      "https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&h=300&fit=crop",
+  },
+];
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   // Live temperature state
   const [temperature, setTemperature] = useState("--");
 
@@ -34,8 +76,25 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleRecipeClick = () => {
-    navigate("/recipes/1");
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollRef.current) {
+        const scrollLeft = scrollRef.current.scrollLeft;
+        const cardWidth = 280 + 16; // card width + gap
+        const index = Math.round(scrollLeft / cardWidth);
+        setActiveIndex(Math.min(index, recipes.length - 1));
+      }
+    };
+
+    const scrollElement = scrollRef.current;
+    if (scrollElement) {
+      scrollElement.addEventListener("scroll", handleScroll);
+      return () => scrollElement.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
+
+  const handleRecipeClick = (recipeId) => {
+    navigate(`/recipes/${recipeId}`);
   };
 
   return (
@@ -59,50 +118,33 @@ export default function HomePage() {
           Since it's 8:00am, here are some breakfast ideas:
         </div>
 
-        {/* Recipe Suggestion Card */}
+        {/* Recipe Cards Horizontal Scroll */}
         <div
-          className="flex flex-col px-6 pt-4 pb-2.5 mt-4 w-full bg-orange-50 rounded-2xl border border-black border-solid shadow-[0px_4px_4px_rgba(0,0,0,0.25)] cursor-pointer"
-          onClick={handleRecipeClick}
+          ref={scrollRef}
+          className="flex gap-4 mt-4 overflow-x-auto scrollbar-hide -mr-10 pr-10 snap-x snap-mandatory"
         >
-          <div className="self-start text-2xl font-bold text-black">
-            Greek Yogurt & Berries
-          </div>
-          <div className="flex gap-3.5 mt-4 text-sm">
-            <div className="flex flex-col self-start">
-              <div className="self-start font-light text-stone-500">Ingredients</div>
-              <div className="mt-3 font-medium leading-5 text-black">
-                Greek Yogurt
-                <br />
-                Berries
-                <br />
-                Raisin Bran Cereal
-                <br />
-                Honey
-              </div>
-            </div>
-            <img
-              src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop"
-              alt="Greek Yogurt & Berries"
-              className="object-contain shrink-0 max-w-full rounded-md aspect-[1.53] shadow-[3px_4px_3px_rgba(0,0,0,0.25)] w-[164px]"
-            />
-          </div>
-          <div className="flex gap-0.5 self-end mt-2.5 text-xs font-light text-right text-black">
-            <div className="basis-auto">Powered by Google Gemini</div>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                fill="#4285F4"
+          {recipes.map((recipe) => (
+            <div key={recipe.id} className="snap-start">
+              <RecipeCard
+                recipe={recipe}
+                onClick={() => handleRecipeClick(recipe.id)}
               />
-            </svg>
-          </div>
+            </div>
+          ))}
         </div>
 
         {/* Pagination Dots */}
-        <div className="flex gap-1.5 self-center mt-4 ml-3 max-w-full w-[121px]">
-          <div className="flex shrink-0 rounded-2xl bg-zinc-300 h-[7px] w-[25px]" />
-          <div className="flex shrink-0 rounded-2xl bg-zinc-300 h-[7px] w-[26px]" />
-          <div className="flex shrink-0 rounded-2xl bg-zinc-300 h-[7px] w-[25px]" />
-          <div className="flex shrink-0 rounded-2xl bg-zinc-300 h-[7px] w-[25px]" />
+        <div className="flex gap-1.5 justify-center mt-4">
+          {recipes.map((_, index) => (
+            <div
+              key={index}
+              className={`rounded-2xl h-[7px] transition-all duration-300 ${
+                index === activeIndex
+                  ? "bg-zinc-500 w-[30px]"
+                  : "bg-zinc-300 w-[20px]"
+              }`}
+            />
+          ))}
         </div>
 
         <div className="self-start mt-3.5 text-3xl font-bold text-black">
@@ -112,11 +154,11 @@ export default function HomePage() {
         {/* Inventory Card */}
         <div className="px-6 pt-5 pb-9 mt-6 w-full bg-white rounded-2xl border border-black border-solid shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <div className="flex gap-10">
-            <div className="grow shrink self-start text-2xl font-bold text-black w-[121px]">
-              Li Household
+            <div className="grow shrink self-start text-xl font-bold text-black">
+              HackCamp House
             </div>
-            <div className="flex items-center justify-center w-[122px] h-[33px] text-base text-red-500 bg-rose-200 rounded-3xl">
-              <div>GOING SOON</div>
+            <div className="flex items-center justify-center px-3 h-[33px] text-sm text-red-500 bg-rose-200 rounded-3xl whitespace-nowrap">
+              EXPIRING SOON
             </div>
           </div>
           <div className="mt-1 text-base text-black">
@@ -165,7 +207,7 @@ export default function HomePage() {
         </div>
         
         {/* Routine Card */}
-        <div className="flex gap-3 px-4 py-3 mt-9 text-base text-black bg-white rounded-2xl border border-black border-solid shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+        <div className="flex gap-3 px-4 py-3 mt-5 text-base text-black bg-white rounded-2xl border border-black border-solid shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <svg width="25" height="25" viewBox="0 0 26 26" fill="none">
             <g>
               <path

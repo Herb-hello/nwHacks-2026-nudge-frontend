@@ -39,7 +39,7 @@ export default function ProfilePage() {
               <div className="w-full bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] border border-black p-6 mb-6">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="text-2xl font-bold text-black">
-                    Li Household
+                    HackCamp House
                   </h3>
                   <button className="bg-neutral-200 px-4 py-1 rounded-full">
                     <span className="text-base font-normal text-black">
@@ -94,7 +94,9 @@ export default function ProfilePage() {
               </div>
 
               {/* Preferences Section */}
-              <h2 className="text-3xl font-bold text-black mb-6">Preferences</h2>
+              <h2 className="text-3xl font-bold text-black mb-6">
+                Preferences
+              </h2>
 
               {/* Preference Pills */}
               <div className="flex flex-wrap gap-3 mb-8">
@@ -146,7 +148,9 @@ export default function ProfilePage() {
                 <button
                   onClick={() => togglePreference("quickToMake")}
                   className={`px-4 py-2 rounded-full ${
-                    preferences.quickToMake ? "bg-neutral-200" : "bg-neutral-100"
+                    preferences.quickToMake
+                      ? "bg-neutral-200"
+                      : "bg-neutral-100"
                   }`}
                 >
                   <span
