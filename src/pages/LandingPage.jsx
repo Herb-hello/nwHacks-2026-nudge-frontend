@@ -1,4 +1,48 @@
-// src/pages/Home.jsx
+import { useNavigate } from 'react-router-dom';
+
 export default function LandingPage() {
-  return <h1>LandingPage</h1>;
+  const navigate = useNavigate();
+
+  return (
+    <div className="w-96 h-[932px] relative bg-white overflow-hidden mx-auto">
+      {/* App Title */}
+      <div className="w-80 h-20 left-[63px] top-[123px] absolute text-center text-black text-7xl font-bold">
+        nudge.
+      </div>
+
+      {/* Main Image */}
+      <img 
+        className="w-72 h-72 left-[63px] top-[286px] absolute" 
+        src="nudgeLogo.png" 
+        alt="Nudge app illustration"
+      />
+
+      {/* Tagline */}
+      <div className="left-[104px] top-[671px] absolute text-center text-black text-xl font-medium">
+        Less Waste, More Taste
+      </div>
+
+      {/* Subtitle */}
+      <div className="left-[63px] top-[702px] absolute text-center text-black text-xl font-normal">
+        Your Fridge's Virtual Companion
+      </div>
+
+      {/* Call-to-Action Buttons */}
+      <div className="absolute bottom-20 left-0 right-0 flex flex-col items-center gap-4 px-8">
+        <button
+          onClick={() => navigate('/signup/1')}
+          className="w-full bg-[#F5CF64] hover:bg-[#e6c055] transition-colors rounded-full py-4 text-white text-xl font-bold shadow-lg"
+        >
+          Get Started
+        </button>
+        
+        <button
+          onClick={() => navigate('/login')}
+          className="w-full bg-white hover:bg-gray-50 transition-colors rounded-full py-4 text-black text-xl font-bold border-2 border-black"
+        >
+          Sign In
+        </button>
+      </div>
+    </div>
+  );
 }
