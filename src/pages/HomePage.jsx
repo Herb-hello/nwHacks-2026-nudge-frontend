@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import PhoneFrame from "../components/phoneFrame";
 import RecipeCard from "../components/RecipeCard";
-
+/*
 const recipes = [
   {
     id: 1,
@@ -41,9 +41,11 @@ const recipes = [
       "https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&h=300&fit=crop",
   },
 ];
+*/
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const [recipes, setRecipes] = useState([]);
   const scrollRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -89,6 +91,59 @@ export default function HomePage() {
     // Initial call
     fetchTemp();
 
+    function parseRecipes(text) {
+      return text
+        .trim()
+        .split("\n")
+        .map((line) => {
+          const [title, ingredients] = line.split(":");
+
+          return {
+            title: title.trim(),
+            ingredients: ingredients
+              .split(",")
+              .map((i) => i.trim())
+              .filter(Boolean),
+          };
+        });
+    }
+
+    const generateRecipes = async () => {
+      const itemsResponse = await fetch(
+        `http://localhost:3333/fridge/${localStorage.getItem("email")}`,
+        {
+          method: "GET",
+        },
+      );
+
+      if (!itemsResponse.ok) {
+        console.log("Server error:", itemsResponse.status);
+        return;
+      }
+
+      const items = await itemsResponse.json();
+
+      const geminiResponse = await fetch(
+        "https://2026nwhacksexpress-production.up.railway.app/prompt",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: `Please generate exactly 5 unique recipes consisting of some of the following ingredients: ${items.map((item) => item.name).join(", ")} Please list all of them on their own individual lines with the following format: Title: item1, item2, item3, item4`,
+          }),
+        },
+      );
+
+      const text = await geminiResponse.text();
+      const newRecipes = parseRecipes(text);
+
+      setRecipes(newRecipes);
+    };
+
+    generateRecipes();
+
     // Auto-refresh timer (5 seconds)
     const interval = setInterval(fetchTemp, 5000);
 
@@ -130,12 +185,12 @@ export default function HomePage() {
                 className="text-2xl font-bold text-black"
                 data-name="Greeting"
               >
-                Good morning,
+                Good afternoon,
                 <br />
                 <span style={{ fontSize: "32px" }}>Kylie</span>
               </div>
               <div className="self-start mt-7 text-sm text-black">
-                Since it's {currentTime}, here are some breakfast ideas:
+                Since it's {currentTime}, here are some lunch ideas:
               </div>
 
               {/* Recipe Cards Horizontal Scroll */}
@@ -143,14 +198,20 @@ export default function HomePage() {
                 ref={scrollRef}
                 className="flex gap-4 mt-4 overflow-x-auto scrollbar-hide -mr-10 pr-10 snap-x snap-mandatory"
               >
-                {recipes.map((recipe) => (
-                  <div key={recipe.id} className="snap-start">
-                    <RecipeCard
-                      recipe={recipe}
-                      onClick={() => handleRecipeClick(recipe.id)}
-                    />
+                {recipes.length ? (
+                  recipes.map((recipe) => (
+                    <div key={recipe.id} className="snap-start">
+                      <RecipeCard
+                        recipe={recipe}
+                        onClick={() => handleRecipeClick(recipe.id)}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full min-h-[25vh] flex justify-center items-center">
+                    <div class="w-1/4  aspect-square border-4 border-black border-t-transparent rounded-full animate-spin"></div>
                   </div>
-                ))}
+                )}
               </div>
 
               {/* Pagination Dots */}

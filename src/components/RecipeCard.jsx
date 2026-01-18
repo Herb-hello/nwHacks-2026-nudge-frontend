@@ -1,3 +1,5 @@
+import quesadillaImg from "../assets/Quesadilla.jpeg";
+
 export default function RecipeCard({ recipe, onClick }) {
   return (
     <div
@@ -20,9 +22,9 @@ export default function RecipeCard({ recipe, onClick }) {
           </div>
         </div>
         <img
-          src={recipe.image}
+          src={quesadillaImg}
           alt={recipe.title}
-          className="object-cover shrink-0 rounded-md aspect-square shadow-[3px_4px_3px_rgba(0,0,0,0.25)] w-[100px] h-[100px]"
+          className="object-cover shrink-0 rounded-md aspect-square w-[100px] h-[100px]"
         />
       </div>
       <div className="flex gap-1 self-end mt-2 text-xs font-light text-right text-black items-center">
