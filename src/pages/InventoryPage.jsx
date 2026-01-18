@@ -77,7 +77,7 @@ export default function InventoryPage() {
         {/* Camera Feed */}
         <div className="relative mb-6">
           <img 
-            src="http://10.19.130.119:81/stream" 
+            src="http://10.19.134.222:3001/relay-stream" 
             alt="Fridge interior"
             className="w-full h-56 object-cover rounded-2xl shadow-md border border-black"
           />
