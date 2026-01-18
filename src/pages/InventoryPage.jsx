@@ -245,37 +245,36 @@ export default function InventoryPage() {
                         </svg>
                       ) : (
                         <svg
-                          width="40"
-                          height="23"
-                          viewBox="0 0 40 23"
+                          width="27"
+                          height="27"
+                          viewBox="0 0 24 24"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <rect
-                            width="40"
-                            height="23"
-                            fill="url(#pattern0_pantry)"
+                          <path
+                            d="M4 8H20L18 20H6L4 8Z"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinejoin="round"
                           />
-                          <defs>
-                            <pattern
-                              id="pattern0_pantry"
-                              patternContentUnits="objectBoundingBox"
-                              width="1"
-                              height="1"
-                            >
-                              <use
-                                xlinkHref="#image0_pantry"
-                                transform="matrix(0.00638889 0 0 0.0111111 0.2125 0)"
-                              />
-                            </pattern>
-                            <image
-                              id="image0_pantry"
-                              width="90"
-                              height="90"
-                              preserveAspectRatio="none"
-                              xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADgklEQVR4nO2du2sUQRzHPyQS7HygIYlokcb4H1j56ATT+ipFEF+lSay08BV7sRPsTaHG1kdUxEpE63TGaBSV4CMWOrIwB3rsbXbn5nezs/f7wLfKzOzvvvfL7nfv5u5AURSl5xkArgHvAFNCC8C0nadUYLqkwe3K5ikVKNvJ7VqschAFPjka/TF24alxxdHoS7ELT401wKOKJj8E+mMXnhrbgO8Vjf4BjMYuPDXuOZ467sYuPCX2OZrc0jg9wA57QXoBvAd+2wTxHLgMjK0yfy0w36XR83adRjICzFhji0zI/n6oYJ0LXZrcUrZO4+gDZksa8AVY12GdUXtB82F0Yy+MfcBx4NsqBpwvWKPsk1VW2QU1CYaAs8BFYGfJOWP2fJz3wL8C6zvMG/dscjIXxu32dvbfom8DgyXm9tsn6Gfb/JsF/w1vhIx+bdevLZ3uypaAg47dvb/DuMNCJrdUtt7g7ClR/KxNGmXP3YsFkeupsNFZ09SSsq8xLFXolg0Ft9p/hI3OIuVWEuxm43juzuOUsMktnaBmVH3FzFh9tqeIqtwKZHSnC3Ey3WxyuntzhWO+CmT0SxrQzaaL7l4MZHT25m1jutk4JJP2rC2l7DiN6mZTsbtNQCmKoiiKovTozsxe1kI3u1Jdd2b2sqZdjNZOJsyu1NhFm0SlRqNG0ySp0ajRNElqNDU1eqEGRZvE9NbFaL1hobKuuhg9YM3WzibcB0NPCxS3AkwAw1aTwK+I412V7THxxl6BAidyjjMVcbyrsjeovTEoUOBQznGGIo53VZX9KKVo347brToRa7yLPiDAnBpNkB2nN9Ro2nUdAc6o0YgmDqnk0QSjdyOA7+TRBKO9Jw6J5JG60SKJQyJ5pG509vUTYvhMHqkbLZI4JJJH6kafRBCfySN1o0USh0TySN1oscThO3mkbLRo4vCdPFI2WjRx+E4eKRstmjh8J4+UjRZNHL6TR8pG7yIAvpJHykZvIhA+ksdwzrpbIo6vVeJo8dhDwZM5656LOL5WicNn8lixZoxYTZXYPiA5vlaJQ+rdFpOQgiQOyX0eJhEFSRyS+zxMIgqWOKT2eZgEFDRxtLhfgwduAutODKOP1OCBm8A6EMPoPoHdS6bGehDz2x03As9qYIIR1lzB96MG/QGDY8ATYLkGphhPWrYGH9UfW1AURVEURVEURVEUReE//gIXkAGxE+X/vwAAAABJRU5ErkJggg=="
-                            />
-                          </defs>
+                          <path
+                            d="M2 8H22"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                          <path
+                            d="M8 12H16"
+                            stroke="black"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                          <path
+                            d="M9 16H15"
+                            stroke="black"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
                         </svg>
                       )}
                       <div>
@@ -384,29 +383,31 @@ export default function InventoryPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  Item Name
-                </label>
-                <input
-                  type="text"
-                  value={newItem.name}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, name: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-200"
-                  placeholder="e.g., Milk"
-                />
-              </div>
+              {newItem.type === "pantry" && (
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Item Name
+                  </label>
+                  <input
+                    type="text"
+                    value={newItem.name}
+                    onChange={(e) =>
+                      setNewItem({ ...newItem, name: e.target.value })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-200"
+                    placeholder="e.g., Milk"
+                  />
+                </div>
+              )}
 
-              {newItem.type === "fridge"}
-
-              <button
-                onClick={handleAddItem}
-                className="w-full bg-orange-200 py-3 rounded-xl border border-black font-medium hover:bg-orange-300 transition-colors"
-              >
-                Add Item
-              </button>
+              {newItem.type === "pantry" && (
+                <button
+                  onClick={handleAddItem}
+                  className="w-full bg-orange-200 py-3 rounded-xl border border-black font-medium hover:bg-orange-300 transition-colors"
+                >
+                  Add Item
+                </button>
+              )}
             </div>
           </div>
         </div>
