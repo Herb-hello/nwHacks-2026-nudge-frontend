@@ -18,7 +18,7 @@ const Navbar = () => {
     }`;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 w-full h-14 bg-white shadow-sm">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[430px] h-14 bg-white shadow-sm border-t border-gray-200">
       <div className="h-full flex justify-center items-center gap-20 px-12">
         <Home
           className={iconClass("/home")}

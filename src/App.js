@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import InventoryPage from "./pages/InventoryPage";
 import RecipePage from "./pages/RecipePage";
+import ProfilePage from "./pages/ProfilePage";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
 import Signup3 from "./pages/Signup3";
@@ -16,7 +17,7 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/inventory" element={<InventoryPage />} />
-      {/* <Route path="/profile" element={<profilePage />} /> */}
+      <Route path="/profile" element={<ProfilePage />} />
 
       {/* Signup flow */}
       <Route path="/signup/1" element={<Signup1 />} />

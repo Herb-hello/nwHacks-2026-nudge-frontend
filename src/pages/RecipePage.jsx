@@ -40,7 +40,16 @@ export default function RecipePage() {
   const filteredRecipes = getFilteredRecipes();
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-screen bg-white relative pb-20" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+    <div className="w-[430px] h-[932px] bg-white relative overflow-y-auto mx-auto pb-20" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+      <style jsx>{`
+        div::-webkit-scrollbar {
+          display: none;
+        }
+        div {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
       {/* Header */}
       <div className="px-10 pt-16">
         <h2 className="text-2xl font-bold text-black mb-1" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>

@@ -35,9 +35,9 @@ export default function HomePage() {
   };
 
   return (
-    <div className="w-96 min-h-[932px] bg-white relative overflow-hidden mx-auto pb-20">
+    <div className="w-[430px] h-[932px] bg-white relative overflow-y-auto mx-auto pb-20 scrollbar-hide">
       {/* Good morning Header */}
-      <div className="px-[41px] pt-[62px]">
+      <div className="px-[42px] pt-[62px]">
         <div className="w-60 h-16">
           <span className="text-black text-2xl font-bold">Good morning,<br/></span>
           <span className="text-black text-3xl font-bold">Kylie</span>
@@ -67,7 +67,7 @@ export default function HomePage() {
       </div>
 
       {/* Fridge Vitals Section */}
-      <div className="px-[41px] pt-[71px]">
+      <div className="px-[42px] pt-[71px]">
         <h2 className="text-black text-3xl font-bold mb-[53px]">
           Fridge Vitals
         </h2>
@@ -99,7 +99,7 @@ export default function HomePage() {
           <div className="w-40 h-24 bg-orange-200 rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] border border-black p-[10px]">
             <div className="flex items-start justify-between">
               <div>
-                <div className="text-black text-2xl font-bold mb-1">3°C</div>
+                <div className="text-black text-2xl font-bold mb-1" ></div>
                 <div className="text-black text-base font-normal leading-tight">
                   Ambient<br/>Temperature
                 </div>
@@ -129,7 +129,7 @@ export default function HomePage() {
       </div>
 
       {/* Routines Section */}
-      <div className="px-[40px] pt-[114px] pb-[66px]">
+      <div className="px-[42px] pt-[114px] pb-[66px]">
         <h2 className="text-black text-3xl font-bold mb-[58px]">
           Routines
         </h2>
