@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import SignupNavigationButton from '../components/navbutton';
-import PhoneFrame from '../components/phoneFrame';
+import { useState } from "react";
+import SignupNavigationButton from "../components/navbutton";
+import PhoneFrame from "../components/phoneFrame";
 
 export default function Signup3() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,9 +39,9 @@ export default function Signup3() {
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
     // You can store selectedRestrictions in context, localStorage, or pass to next page
-    console.log('Selected dietary restrictions:', selectedRestrictions);
-    
-    const email = "user@example.com"; // Store in memory instead of localStorage
+    console.log("Selected dietary restrictions:", selectedRestrictions);
+
+    const email = localStorage.getItem("email");
 
     fetch(
       `https://2026nwhacksexpress-production.up.railway.app/user/${email}/dietaryRestrictions`,
@@ -83,7 +83,8 @@ export default function Signup3() {
 
               {/* Subtitle */}
               <p className="text-stone-500 text-sm font-light mb-8">
-                You can change your dietary restrictions at any time. Just go to your 'Profile' page.
+                You can change your dietary restrictions at any time. Just go to
+                your 'Profile' page.
               </p>
 
               {/* Form Fields */}
@@ -97,15 +98,26 @@ export default function Signup3() {
                       onClick={() => toggleRestriction(restriction)}
                       className={`w-80 h-16 rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] border border-black flex items-center justify-between px-6 transition-colors ${
                         selectedRestrictions.includes(restriction)
-                          ? 'bg-yellow-100'
-                          : 'bg-white hover:bg-gray-50'
+                          ? "bg-yellow-100"
+                          : "bg-white hover:bg-gray-50"
                       }`}
                     >
                       <span className="text-2xl text-black">{restriction}</span>
                       {selectedRestrictions.includes(restriction) && (
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none">
-                          <circle cx="17.5" cy="17.5" r="17.5" fill="#F5CF64"/>
-                          <path d="M10 17.5L15 22.5L25 12.5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                        <svg
+                          width="35"
+                          height="35"
+                          viewBox="0 0 35 35"
+                          fill="none"
+                        >
+                          <circle cx="17.5" cy="17.5" r="17.5" fill="#F5CF64" />
+                          <path
+                            d="M10 17.5L15 22.5L25 12.5"
+                            stroke="white"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       )}
                     </button>
@@ -124,9 +136,9 @@ export default function Signup3() {
                 </div>
 
                 {/* Next Button */}
-                <SignupNavigationButton 
-                  currentStep={3} 
-                  onSubmit={handleSubmit} 
+                <SignupNavigationButton
+                  currentStep={3}
+                  onSubmit={handleSubmit}
                 />
               </div>
             </div>

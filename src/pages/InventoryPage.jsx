@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import PhoneFrame from "../components/phoneFrame";
 
@@ -45,6 +45,40 @@ export default function InventoryPage() {
   const handleFilterClick = (filterType) => {
     setFilter(filter === filterType ? "all" : filterType);
   };
+
+  async function fetchFridgeContents() {
+    const response = await fetch(
+      `http://localhost:3333/fridge/${localStorage.getItem("email")}`,
+      {
+        method: "PUT",
+      },
+    );
+
+    if (!response.ok) {
+      console.log("Server error:", response.status);
+      return;
+    }
+
+    const data = await response.json();
+
+    console.log("Feedback");
+
+    setItems(
+      data.map((item) => {
+        return {
+          id: item._id,
+          name: item.name,
+          daysLeft: item.estimatedShelfLifeDays,
+          type: "fridge",
+          expired: false,
+        };
+      }),
+    );
+  }
+  useEffect(() => {
+    const interval = setInterval(fetchFridgeContents, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const getFilteredItems = () => {
     switch (filter) {
@@ -199,7 +233,6 @@ export default function InventoryPage() {
                   </span>
                 </button>
               </div>
-              
 
               {/* Inventory List */}
               <div className="space-y-3 pb-6">

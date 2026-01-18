@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import SignupNavigationButton from '../components/navbutton';
-import PhoneFrame from '../components/phoneFrame';
+import { useState } from "react";
+import SignupNavigationButton from "../components/navbutton";
+import PhoneFrame from "../components/phoneFrame";
 
 export default function Signup1() {
   const [formData, setFormData] = useState({
@@ -41,7 +41,6 @@ export default function Signup1() {
     }
 
     // Store email in memory instead of localStorage (not supported in artifacts)
-    console.log("Email stored:", formData.email);
 
     fetch("https://2026nwhacksexpress-production.up.railway.app/user", {
       method: "POST",
@@ -57,6 +56,8 @@ export default function Signup1() {
         dateOfBirth: formData.dateOfBirth,
       }),
     });
+
+    localStorage.setItem("email", formData.email);
   };
 
   return (
@@ -179,9 +180,9 @@ export default function Signup1() {
                 </div>
 
                 {/* Next Button */}
-                <SignupNavigationButton 
-                  currentStep={1} 
-                  onSubmit={handleSubmit} 
+                <SignupNavigationButton
+                  currentStep={1}
+                  onSubmit={handleSubmit}
                 />
               </div>
             </div>

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import SignupNavigationButton from '../components/navbutton';
-import PhoneFrame from '../components/phoneFrame';
+import { useState } from "react";
+import SignupNavigationButton from "../components/navbutton";
+import PhoneFrame from "../components/phoneFrame";
 
 export default function Signup5() {
   const [formData, setFormData] = useState({
@@ -20,14 +20,14 @@ export default function Signup5() {
 
     // Validate household name is required
     if (!formData.householdName.trim()) {
-      alert('Please enter a household name');
+      alert("Please enter a household name");
       return false; // Return false to prevent navigation
     }
 
     // Log all signup data (you'll want to combine with context data)
-    console.log('Signup complete!', formData);
-    
-    const email = "user@example.com"; // Store in memory instead of localStorage
+    console.log("Signup complete!", formData);
+
+    const email = localStorage.getItem("email");
 
     fetch(
       `https://2026nwhacksexpress-production.up.railway.app/user/${email}/fridgeHousehold`,
@@ -64,7 +64,9 @@ export default function Signup5() {
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl font-bold mb-12">Connect to your Fridge</h1>
+              <h1 className="text-3xl font-bold mb-12">
+                Connect to your Fridge
+              </h1>
 
               {/* Form Fields */}
               <div className="space-y-7">
@@ -105,9 +107,9 @@ export default function Signup5() {
 
                 {/* Save Button */}
                 <div className="pt-32">
-                  <SignupNavigationButton 
-                    currentStep={5} 
-                    onSubmit={handleSubmit} 
+                  <SignupNavigationButton
+                    currentStep={5}
+                    onSubmit={handleSubmit}
                   />
                 </div>
               </div>
