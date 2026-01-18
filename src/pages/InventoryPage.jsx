@@ -4,14 +4,7 @@ import Navbar from "../components/navbar";
 import PhoneFrame from "../components/phoneFrame";
 
 export default function InventoryPage() {
-  const navigate = useNavigate();
-  const [items, setItems] = useState([
-    { id: 1, name: "Chicken", daysLeft: 3, type: "fridge", expired: false },
-    { id: 2, name: "Bread", daysLeft: 7, type: "fridge", expired: false },
-    { id: 3, name: "Yogurt", daysLeft: 21, type: "fridge", expired: false },
-    { id: 4, name: "Flour", type: "pantry", expired: false },
-    { id: 5, name: "Sugar", type: "pantry", expired: false },
-  ]);
+  const [items, setItems] = useState([]);
 
   const [filter, setFilter] = useState("all");
   const [showAddModal, setShowAddModal] = useState(false);
@@ -48,6 +41,40 @@ export default function InventoryPage() {
     setFilter(filter === filterType ? "all" : filterType);
   };
 
+  async function fetchFridgeContents() {
+    const response = await fetch(
+      `http://localhost:3333/fridge/${localStorage.getItem("email")}`,
+      {
+        method: "PUT",
+      },
+    );
+
+    if (!response.ok) {
+      console.log("Server error:", response.status);
+      return;
+    }
+
+    const data = await response.json();
+
+    setItems(
+      data.map((item) => {
+        return {
+          id: item._id,
+          name: item.name,
+          daysLeft: item.estimatedShelfLifeDays,
+          type: "fridge",
+          expired: false,
+        };
+      }),
+    );
+  }
+  useEffect(() => {
+    fetchFridgeContents();
+
+    const interval = setInterval(fetchFridgeContents, 30000);
+    return () => clearInterval(interval);
+  }, []);
+  
   const getFilteredItems = () => {
     switch (filter) {
       case "expired":
@@ -223,27 +250,50 @@ export default function InventoryPage() {
                         >
                           <rect
                             width="27"
-                            height="26.8966"
-                            fill="url(#pattern0_fridge)"
-                          />
-                          <defs>
-                            <pattern
-                              id="pattern0_fridge"
-                              patternContentUnits="objectBoundingBox"
-                              width="1"
-                              height="1"
-                            >
-                              <use
-                                xlinkHref="#image0_fridge"
-                                transform="matrix(0.0110685 0 0 0.0111111 0.00191572 0)"
+                            height="27"
+                            viewBox="0 0 27 27"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              width="27"
+                              height="26.8966"
+                              fill="url(#pattern0_fridge)"
+                            />
+                            <defs>
+                              <pattern
+                                id="pattern0_fridge"
+                                patternContentUnits="objectBoundingBox"
+                                width="1"
+                                height="1"
+                              >
+                                <use
+                                  xlinkHref="#image0_fridge"
+                                  transform="matrix(0.0110685 0 0 0.0111111 0.00191572 0)"
+                                />
+                              </pattern>
+                              <image
+                                id="image0_fridge"
+                                width="90"
+                                height="90"
+                                preserveAspectRatio="none"
+                                xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAABzUlEQVR4nO3cO04DQRBF0RdhlsBviXwyYAewMsARsAdYAIKEqJClDhByIywN9Xpq7pEqQQ66rsZgI3skAAAAAChuX9KFpLWkD0kx8/mQ9CDpXNJKgziR9DxAnPineWo72q/kypHjW2zrlX0xQIRImjNn6PUAASJp7p2h3wcIEEmz2dUmFjY27sWD0DXHpnegT0mXko7aXLWfuUOVC70J+9PVAKHKhT7c8tiDAUKVC73r42MmY0PoJIROQugkhE5C6CS9A23epPx0PECoRbxhuR4gVLnQny02b8En4l48CF1zbNyLB6Frjo178SB0zQEAACjO/XIrlvLyzr14ELrm2LgXD0LXHBv34rH00HyadGK9A/Fp0on1DsSnSSe264Fi5mND6CSETkLoJIROQugkhE5C6CSETkLoJIROQugkvQPxHZaJ9Q7Ed1gm1jsQ32GZmHvxIHTNsXEvHoSuOTbuxYPQNcfGvXgQuubYuBePpYRe0k1g35yhua1xkvMBAkTSnMpo1W7LHsXnUdKezE6Kx35s/0sfwqrdA/++yB/Id0l37deF/Ur+zeuWw79oPHM5Z9ftlgVuNJ65nLNrry3x2uZ20KfgXM4JAACgv/kCEynC8GZaEygAAAAASUVORK5CYII="
                               />
-                            </pattern>
-                            <image
-                              id="image0_fridge"
-                              width="90"
-                              height="90"
-                              preserveAspectRatio="none"
-                              xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAABzUlEQVR4nO3cO04DQRBF0RdhlsBviXwyYAewMsARsAdYAIKEqJClDhByIywN9Xpq7pEqQQ66rsZgI3skAAAAAChuX9KFpLWkD0kx8/mQ9CDpXNJKgziR9DxAnPineWo72q/kypHjW2zrlX0xQIRImjNn6PUAASJp7p2h3wcIEEmz2dUmFjY27sWD0DXHpnegT0mXko7aXLWfuUOVC70J+9PVAKHKhT7c8tiDAUKVC73r42MmY0PoJIROQugkhE5C6CS9A23epPx0PECoRbxhuR4gVLnQny02b8En4l48CF1zbNyLB6Frjo178SB0zQEAACjO/XIrlvLyzr14ELrm2LgXD0LXHBv34rH00HyadGK9A/Fp0on1DsSnSSe264Fi5mND6CSETkLoJIROQugkhE5C6CSETkLoJIROQugkvQPxHZaJ9Q7Ed1gm1jsQ32GZmHvxIHTNsXEvHoSuOTbuxYPQNcfGvXgQuubYuBePpYRe0k1g35yhua1xkvMBAkTSnMpo1W7LHsXnUdKezE6Kx35s/0sfwqrdA/++yB/Id0l37deF/Ur+zeuWw79oPHM5Z9ftlgVuNJ65nLNrry3x2uZ20KfgXM4JAACgv/kCEynC8GZaEygAAAAASUVORK5CYII="
+                            </defs>
+                          </svg>
+                        ) : (
+                          <svg
+                            width="27"
+                            height="27"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M4 8H20L18 20H6L4 8Z"
+                              stroke="black"
+                              strokeWidth="2"
+                              strokeLinejoin="round"
                             />
                           </defs>
                         </svg>
@@ -261,38 +311,50 @@ export default function InventoryPage() {
                           {item.name}
                         </p>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-3">
-                      {item.type === "fridge" &&
-                        item.daysLeft !== undefined && (
-                          <span className="text-base text-black">
-                            ~{item.daysLeft} days left
-                          </span>
-                        )}
-                      <button
-                        onClick={() => handleDeleteItem(item.id)}
-                        className="text-gray-400 hover:text-red-500 transition-colors"
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                      <div className="flex items-center gap-3">
+                        {item.type === "fridge" &&
+                          item.daysLeft !== undefined && (
+                            <span className="text-base text-black">
+                              ~{item.daysLeft} days left
+                            </span>
+                          )}
+                        <button
+                          onClick={() => handleDeleteItem(item.id)}
+                          className="text-gray-400 hover:text-red-500 transition-colors"
                         >
-                          <path
-                            d="M15 5L5 15M5 5L15 15"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </button>
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M15 5L5 15M5 5L15 15"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="w-full min-h-[25vh] flex justify-center items-center">
+                  <div class="w-1/4  aspect-square border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
+            </div>
+            <div className="w-full px-[3rem] pb-[10vh] flex justify-center items-center">
+              <button
+                className=" w-full bg-yellow-300 hover:bg-yellow-200 rounded-2xl shadow-md border border-black p-4 text-center font-bold flex items-center justify-center"
+                onClick={() => window.location.reload()}
+              >
+                Refresh
+              </button>
             </div>
           </div>
 
