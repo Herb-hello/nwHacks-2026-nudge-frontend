@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
+import HomePage from "./pages/HomePage";
+import InventoryPage from "./pages/InventoryPage";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
 import Signup3 from "./pages/Signup3";
@@ -11,9 +13,9 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      {/* <Route path="/home" element={<homePage />} />
-      <Route path="/inventory" element={<inventoryPage />} />
-      <Route path="/profile" element={<profilePage />} /> */}
+      <Route path="/home" element={<HomePage />} />
+      <Route path="/inventory" element={<InventoryPage />} />
+      {/* <Route path="/profile" element={<profilePage />} /> */}
 
       {/* Signup flow */}
       <Route path="/signup/1" element={<Signup1 />} />
