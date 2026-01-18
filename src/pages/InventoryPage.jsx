@@ -1,4 +1,5 @@
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import PhoneFrame from "../components/phoneFrame";
 
@@ -73,7 +74,7 @@ export default function InventoryPage() {
     const interval = setInterval(fetchFridgeContents, 30000);
     return () => clearInterval(interval);
   }, []);
-
+  
   const getFilteredItems = () => {
     switch (filter) {
       case "expired":
@@ -229,16 +230,25 @@ export default function InventoryPage() {
               </div>
 
               {/* Inventory List */}
-              {items?.length ? (
-                <div className="space-y-3 pb-6">
-                  {filteredItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="w-full bg-white rounded-2xl shadow-md border border-black p-4 flex items-center justify-between"
-                    >
-                      <div className="flex items-center gap-4">
-                        {item.type === "fridge" ? (
-                          <svg
+              <div className="space-y-3 pb-6">
+                {filteredItems.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() =>
+                      item.name === "Yogurt" && navigate("/recipes/1")
+                    }
+                    className={`w-full bg-white rounded-2xl shadow-md border border-black p-4 flex items-center justify-between ${item.name === "Yogurt" ? "cursor-pointer hover:bg-gray-50" : ""}`}
+                  >
+                    <div className="flex items-center gap-4">
+                      {item.type === "fridge" ? (
+                        <svg
+                          width="27"
+                          height="27"
+                          viewBox="0 0 27 27"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect
                             width="27"
                             height="27"
                             viewBox="0 0 27 27"
@@ -285,31 +295,21 @@ export default function InventoryPage() {
                               strokeWidth="2"
                               strokeLinejoin="round"
                             />
-                            <path
-                              d="M2 8H22"
-                              stroke="black"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                            />
-                            <path
-                              d="M8 12H16"
-                              stroke="black"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                            />
-                            <path
-                              d="M9 16H15"
-                              stroke="black"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                        )}
-                        <div>
-                          <p className="text-base font-bold text-black">
-                            {item.name}
-                          </p>
+                          </defs>
+                        </svg>
+                      ) : (
+                        <div className="w-[32px] flex justify-center">
+                          <img
+                            src="/ingredients.png"
+                            alt="Pantry"
+                            className="w-[32px] h-[32px] object-contain"
+                          />
                         </div>
+                      )}
+                      <div>
+                        <p className="text-base font-bold text-black">
+                          {item.name}
+                        </p>
                       </div>
 
                       <div className="flex items-center gap-3">

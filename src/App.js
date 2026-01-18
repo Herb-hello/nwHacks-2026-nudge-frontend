@@ -10,6 +10,7 @@ import Signup2 from "./pages/Signup2";
 import Signup3 from "./pages/Signup3";
 import Signup4 from "./pages/Signup4";
 import Signup5 from "./pages/Signup5";
+import RecipeFull from "./pages/RecipeFull";
 
 export default function App() {
   return (
@@ -21,14 +22,14 @@ export default function App() {
 
       {/* Signup flow */}
       <Route path="/signup/1" element={<Signup1 />} />
-      <Route path="/signup/2" element={<Signup2 />} /> 
+      <Route path="/signup/2" element={<Signup2 />} />
       <Route path="/signup/3" element={<Signup3 />} />
       <Route path="/signup/4" element={<Signup4 />} />
-      <Route path="/signup/5" element={<Signup5 />} /> 
+      <Route path="/signup/5" element={<Signup5 />} />
 
       {/* Recipes */}
       <Route path="/recipes" element={<RecipePage />} />
-      {/* <Route path="/recipes/:id" element={<recipe />} />  */}
+      <Route path="/recipes/:id" element={<RecipeFull />} />
 
       <Route path="*" element={<h1>Page not found</h1>} />
     </Routes>
